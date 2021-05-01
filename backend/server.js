@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Configuring the database
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
@@ -20,10 +23,6 @@ mongoose
     process.exit();
   });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+require("./routes/equipment.routes")(app);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello World" });
-});
 app.listen(3000, () => console.log(`listening at https://localhost:3000`));

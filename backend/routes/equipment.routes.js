@@ -8,8 +8,8 @@ module.exports = (app) => {
   app.get("/equipment", equipment.findAll);
 
   // retrieve single equipment
-  app.get("/equipment/:equipmentId", equipment.findOne);
+  app.get("/equipment/:EquipmentId", equipment.findOne);
 
   // delete equipment
-  app.delete("/equipment/:equipmentId", equipment.delete);
+  app.delete("/equipment/:EquipmentId", equipment.delete);
 };
