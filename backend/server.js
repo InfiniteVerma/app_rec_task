@@ -25,4 +25,6 @@ mongoose
 
 require("./routes/equipment.routes")(app);
 
-app.listen(3000, () => console.log(`listening at https://localhost:3000`));
+app.listen(process.env.PORT || 3000, () =>
+  console.log(`listening at https://localhost:3000`)
+);
