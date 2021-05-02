@@ -14,10 +14,19 @@ Expanded buildEquipmentList(List<Equipment> equipments) {
                     ))),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(),
+                color: Color(0xfff8ad9d).withOpacity(0.9),
+                border: Border.all(color: Colors.black54),
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0),
+                    blurRadius: 3.0,
+                  ),
+                ],
               ),
               padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Column(
                 children: [
                   Container(
@@ -35,15 +44,18 @@ Expanded buildEquipmentList(List<Equipment> equipments) {
                           flex: 1,
                           child: Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(equipments[index].location),
+                            child: Text('Subtitle',
+                                style: TextStyle(fontSize: 15)),
                           ),
                         ),
                         Expanded(
                           flex: 1,
                           child: Container(
                             alignment: Alignment.centerRight,
-                            child:
-                                Text(equipments[index].phoneNumber.toString()),
+                            child: Text(
+                              "+91 " + equipments[index].phoneNumber.toString(),
+                              style: TextStyle(fontSize: 15),
+                            ),
                           ),
                         )
                       ],
