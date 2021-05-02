@@ -6,16 +6,27 @@ class Equipment {
   String date;
   int phoneNumber;
 
-  Equipment({this.id, this.title, this.desc, this.location, this.date, this.phoneNumber});
+  Equipment(
+      {this.id,
+      this.title,
+      this.desc,
+      this.location,
+      this.date,
+      this.phoneNumber});
 
-  factory Equipment.fromJson(Map<String, dynamic> json){
+  factory Equipment.fromJson(Map<String, dynamic> json) {
     return Equipment(
-      id : json['_id'] as String,
-      title: json['title'] as String,
-      desc: json['desc'] as String,
-      location: json['location'] as String,
-      date: json['date'] as String,
-      phoneNumber: json['phoneNumber'] as int
-    );
+        id: json['_id'] as String,
+        title: json['title'] as String,
+        desc: json['desc'] as String,
+        location: json['location'] as String,
+        date: json['date'] as String,
+        phoneNumber: json['phoneNumber'] as int);
+  }
+
+  @override
+  String toString() {
+    print(
+        "Title:$title\tDesc:$desc\tLocation:$location\tDate:$date\tPno:$phoneNumber");
   }
 }
