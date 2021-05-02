@@ -27,7 +27,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffD9E5D6),
       appBar: AppBar(
+        backgroundColor: Color(0xffF08080),
         title: Text('Test'),
       ),
       body: EquipmentList(),
@@ -39,7 +41,7 @@ class HomePage extends StatelessWidget {
               MaterialPageRoute(builder: (context) => InsertEquipment()));
         },
         child: const Icon(Icons.add),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xffF08080),
       ),
     );
   }
