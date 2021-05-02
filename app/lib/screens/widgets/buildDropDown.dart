@@ -6,21 +6,25 @@ Padding buildDropdown(
     padding: const EdgeInsets.all(5.0),
     child: DropdownButtonFormField(
       hint: Text(hintText),
-      items: listItems.map((String category) {
+      items: listItems.map((String indiaState) {
         return new DropdownMenuItem(
-            value: category,
+            value: indiaState,
             child: Row(
               children: <Widget>[
-                Text(category),
+                Text(
+                  indiaState,
+                  style: TextStyle(fontSize: 17),
+                ),
               ],
             ));
       }).toList(),
       onChanged: onchanged,
       value: val,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-        filled: true,
         fillColor: Colors.grey[200],
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderSide: BorderSide(color: Color(0xffF8AD9D), width: 2.0)),
       ),
     ),
   );
