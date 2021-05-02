@@ -18,11 +18,14 @@ exports.insert = (req, res) => {
     date: req.body.date,
     phoneNumber: req.body.phoneNumber,
     location: req.body.location,
-    img: req.file.path
+    img: req.file.path,
+    location: req.body.location,
+    type: req.body.type,
   });
 
   // Save Equipment in the database
-  equipment.save()
+  equipment
+    .save()
     .then((data) => {
       res.send(data);
     })
@@ -35,7 +38,6 @@ exports.insert = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-
   Equipment.find()
     .then((Equipments) => {
       res.send(Equipments);

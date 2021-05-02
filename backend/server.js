@@ -23,6 +23,8 @@ mongoose
     process.exit();
   });
 
+app.use("/uploads", express.static("./uploads"));
+
 require("./routes/equipment.routes")(app);
 
 app.listen(process.env.PORT || 3000, () =>
