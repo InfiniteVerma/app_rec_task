@@ -6,6 +6,7 @@ class Equipment {
   String date;
   int phoneNumber;
   String img;
+  String type;
 
   Equipment(
       {this.id,
@@ -13,6 +14,7 @@ class Equipment {
       this.desc,
       this.location,
       this.date,
+      this.type,
       this.phoneNumber,
       this.img});
 
@@ -24,12 +26,13 @@ class Equipment {
         location: json['location'] as String,
         date: json['date'] as String,
         phoneNumber: json['phoneNumber'] as int,
-        img: json['img'] as String);
+        img: json['img'] as String,
+        type: json['type'] as String);
   }
 
   @override
   String toString() {
     print(
-        "Title:$title\tDesc:$desc\tLocation:$location\tDate:$date\tPno:$phoneNumber\tImage:$img");
+        "Title:$title\tDesc:$desc\tLocation:$location\tDate:$date\tPno:$phoneNumber\tImage:$img\Type:$type");
   }
 }
