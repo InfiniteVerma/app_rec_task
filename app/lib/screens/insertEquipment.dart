@@ -70,13 +70,13 @@ class _InsertEquipmentState extends State<InsertEquipment> {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: TextFormField(
-          // controller: titleController,
-          // style: textStyle,
           onChanged: (value) {
             debugPrint('Something happned in $label!');
-            // updateTitle();
           },
           validator: (value) {
+            if (value.length != 10 && label == 'Phone Number') {
+              return 'Phone Number must be 10 digits long';
+            }
             if (value.isEmpty) {
               return 'Please enter $label';
             }
@@ -84,7 +84,6 @@ class _InsertEquipmentState extends State<InsertEquipment> {
           onSaved: onsaved,
           decoration: InputDecoration(
               labelText: label,
-              // labelStyle: textStyle,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ))),
