@@ -20,7 +20,7 @@ class EquipmentDetail extends StatelessWidget {
                 child: Text(equipment.desc),
               ),
               Container(
-                child: Text(equipment.imageUrl),
+                child: Text(equipment.location),
               ),
               Container(
                 child: Text(equipment.date),
