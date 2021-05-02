@@ -78,7 +78,11 @@ class _InsertEquipmentState extends State<InsertEquipment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Insert Equipment")),
+        backgroundColor: Color(0xffD9E5D6),
+        appBar: AppBar(
+          title: Text("Insert Equipment"),
+          backgroundColor: Color(0xffF08080),
+        ),
         body: Padding(
           padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
           child: Form(
@@ -113,12 +117,25 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                     equipment.phoneNumber = int.parse(val);
                   });
                 }),
-                ElevatedButton(
-                  onPressed: getImage,
-                  child: Text('Upload Image'),
+                GestureDetector(
+                  onTap: getImage,
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    child: Text(
+                      'Upload Image',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Color(0xffD9E5D6),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        border: Border.all(color: Colors.black45)),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
+                GestureDetector(
+                  onTap: () async {
                     final form = _formKey.currentState;
 
                     if (form.validate()) {
@@ -132,7 +149,20 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                       print("Error");
                     }
                   },
-                  child: Text('Submit'),
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    child: Text(
+                      'Submit',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 17, color: Colors.white),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Color(0xffF08080).withOpacity(0.8),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        border: Border.all(color: Colors.black45)),
+                  ),
                 ),
               ],
             ),
