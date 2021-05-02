@@ -40,12 +40,27 @@ class EquipmentDetail extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 height: 200,
                 child: Center(
-                    child: Image.network(
-                        "https://dry-plains-59279.herokuapp.com/" +
-                            equipment.img)),
+                  child: Image.network(
+                    "https://dry-plains-59279.herokuapp.com/" + equipment.img,
+                    fit: BoxFit.fill,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.symmetric(vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   // border: Border.all(color: Colors.black54),
@@ -54,7 +69,7 @@ class EquipmentDetail extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Text(
                   equipment.desc,
-                  style: TextStyle(fontSize: 19),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
               Row(
