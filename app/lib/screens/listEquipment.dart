@@ -1,6 +1,8 @@
+import 'package:app_rec_task/constants.dart';
 import 'package:app_rec_task/http_service.dart';
 import 'package:app_rec_task/models/equipment.dart';
-import 'package:app_rec_task/screens/equipmentDetail.dart';
+import 'package:app_rec_task/screens/widgets/buildDropDown.dart';
+import 'package:app_rec_task/screens/widgets/buildEquipmentList.dart';
 import 'package:flutter/material.dart';
 
 class EquipmentList extends StatefulWidget {
@@ -10,6 +12,8 @@ class EquipmentList extends StatefulWidget {
 
 class _EquipmentListState extends State<EquipmentList> {
   final HttpService httpService = HttpService();
+  int typeChosen = 0;
+  String stateChosen = 'Uttar Pradesh';
 
   Future<List<Equipment>> _refreshEquipmentList(BuildContext context) {
     return httpService.getEquipments();
@@ -25,65 +29,59 @@ class _EquipmentListState extends State<EquipmentList> {
           builder:
               (BuildContext context, AsyncSnapshot<List<Equipment>> snapshot) {
             if (snapshot.hasData) {
-              print("ja");
               List<Equipment> equipments = snapshot.data;
-              return ListView.builder(
-                  itemCount: equipments.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EquipmentDetail(
-                                equipment: equipments[index],
-                              ))),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                equipments[index].title,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(equipments[index].location),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(equipments[index]
-                                          .phoneNumber
-                                          .toString()),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
+              var equip = equipments
+                  .where((e) =>
+                      e.type == typesOfEquipment[typeChosen] &&
+                      e.location == stateChosen)
+                  .toList();
+              return Column(
+                children: [
+                  buildTypeFilter(context),
+                  buildDropdown('Choose State', indiaStates, 'Uttar Pradesh',
+                      (val) {
+                    setState(() {
+                      stateChosen = val;
+                    });
+                  }),
+                  buildEquipmentList(equip),
+                ],
+              );
             } else {
               return Center(child: CircularProgressIndicator());
             }
           },
         ),
       ),
+    );
+  }
+
+  Container buildTypeFilter(BuildContext context) {
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: typesOfEquipment
+              .map(
+                (e) => GestureDetector(
+                    onTap: () {
+                      print('$e pressed');
+                      setState(() {
+                        typeChosen = typesOfEquipment.indexOf(e);
+                      });
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: typeChosen == typesOfEquipment.indexOf(e)
+                                ? Colors.blue[200]
+                                : null,
+                            border: Border.all()),
+                        child: Center(child: Text(e)))),
+              )
+              .toList()),
     );
   }
 }
