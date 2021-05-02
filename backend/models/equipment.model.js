@@ -7,6 +7,7 @@ const EquipmentSchema = new mongoose.Schema(
     date: Date,
     phoneNumber: Number,
     location: String,
+    img: String,
   },
   {
     timestamps: true,

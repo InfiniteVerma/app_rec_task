@@ -18,6 +18,7 @@ exports.insert = (req, res) => {
     date: req.body.date,
     phoneNumber: req.body.phoneNumber,
     location: req.body.location,
+    img: req.file.path
   });
 
   // Save Equipment in the database
