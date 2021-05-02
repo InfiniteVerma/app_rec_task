@@ -1,5 +1,5 @@
 class Equipment {
-  int id;
+  String id;
   String title;
   String desc;
   String location;
@@ -10,7 +10,7 @@ class Equipment {
 
   factory Equipment.fromJson(Map<String, dynamic> json){
     return Equipment(
-      id : json['id'] as int,
+      id : json['_id'] as String,
       title: json['title'] as String,
       desc: json['desc'] as String,
       location: json['location'] as String,
