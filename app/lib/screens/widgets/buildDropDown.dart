@@ -23,7 +23,7 @@ Padding buildDropdown(
       decoration: InputDecoration(
         fillColor: Colors.grey[200],
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
             borderSide: BorderSide(color: Color(0xffF8AD9D), width: 2.0)),
       ),
     ),

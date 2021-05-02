@@ -1,6 +1,7 @@
 import 'package:app_rec_task/models/equipment.dart';
 import 'package:flutter/material.dart';
 
+
 class EquipmentDetail extends StatelessWidget {
   const EquipmentDetail({Key key, this.equipment}) : super(key: key);
 
