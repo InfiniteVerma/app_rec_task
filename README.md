@@ -8,7 +8,7 @@ A flutter project to add and retrieve covid resources with state and type filter
 - First, clone the repository with the 'clone' command, or just download the zip.
 
 ```
-$ git clone https://github.com/InfiniteVerma/mancomm-rec
+$ git clone https://github.com/InfiniteVerma/app_rec_task
 ```
 
 
