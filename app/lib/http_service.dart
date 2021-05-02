@@ -23,4 +23,25 @@ class HttpService {
       throw "Unable";
     }
   }
+
+  Future<void> insertEquipment(Equipment equipment) async {
+    Response res = await post(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body:jsonEncode(<String, String>{
+      'title': equipment.title,
+      'desc': equipment.desc,
+      'location': equipment.location,
+      'phoneNumber': equipment.phoneNumber.toString(),
+      'date': equipment.date
+    }),);
+
+    if (res.statusCode == 200) {
+      print("Created");
+      return Equipment.fromJson(jsonDecode(res.body));
+    } else {
+      throw "Unable to create post.";
+    }
+  }
 }
