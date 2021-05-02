@@ -39,42 +39,7 @@ class _InsertEquipmentState extends State<InsertEquipment> {
     });
   }
 
-  upload(File imageFile) async {
-    // open a bytestream
-    var stream =
-        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-    // get file length
-    var length = await imageFile.length();
-
-    // string to uri
-    var uri = Uri.parse("https://dry-plains-59279.herokuapp.com/equipment");
-
-    equipment.date = DateTime.now().toString();
-    // create multipart request
-    var request = new http.MultipartRequest("POST", uri)
-      ..fields['title'] = equipment.title
-      ..fields['desc'] = equipment.desc
-      ..fields['location'] = equipment.location
-      ..fields['date'] = equipment.date
-      ..fields['phoneNumber'] = equipment.phoneNumber.toString()
-      ..fields['type'] = equipment.type;
-
-    // multipart that takes file
-    var multipartFile = new http.MultipartFile('img', stream, length,
-        filename: basename(imageFile.path));
-
-    // add file to multipart
-    request.files.add(multipartFile);
-
-    // send
-    var response = await request.send();
-    print(response.statusCode);
-
-    // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +108,7 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                       form.save();
                       equipment.date = DateTime.now().toString();
                       print(equipment);
-                      upload(_image);
+                      httpService.upload(_image, equipment);
                       // await httpService.insertEquipment(equipment);
                       Navigator.of(context).pop();
                     } else {
