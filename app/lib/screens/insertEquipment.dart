@@ -1,12 +1,7 @@
 import 'dart:io';
 import 'package:app_rec_task/constants.dart';
 import 'package:app_rec_task/screens/widgets/buildDropDown.dart';
-import 'package:path/path.dart';
-import 'dart:convert';
-import 'dart:ffi';
 import 'dart:async';
-import 'package:async/async.dart';
-import 'package:http/http.dart' as http;
 import 'package:app_rec_task/models/equipment.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
