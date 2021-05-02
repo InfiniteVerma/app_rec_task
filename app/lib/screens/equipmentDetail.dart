@@ -16,51 +16,130 @@ class EquipmentDetail extends StatelessWidget {
         date.day.toString();
 
     return Scaffold(
-        appBar: AppBar(title: Text('Test')),
+        backgroundColor: Color(0xffD9E5D6),
+        appBar: AppBar(
+          backgroundColor: Color(0xffF08080),
+          title: Text('Test'),
+        ),
         body: Container(
           padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.all(10),
-          child: Column(
+          margin: const EdgeInsets.symmetric(vertical: 2),
+          child: ListView(
             children: [
               Container(
                 padding: const EdgeInsets.all(5),
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  equipment.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(5),
                 height: 200,
-                decoration: BoxDecoration(border: Border.all()),
                 child: Center(
                     child: Image.network(
                         "https://dry-plains-59279.herokuapp.com/" +
                             equipment.img)),
               ),
-              buildTextContainer("Title", equipment.title),
-              buildTextContainer("Desc", equipment.desc),
-              buildTextContainer("Location", equipment.location),
-              buildTextContainer("Phone", equipment.phoneNumber.toString()),
-              buildTextContainer("Date", mydate),
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  // border: Border.all(color: Colors.black54),
+                  // borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  equipment.desc,
+                  style: TextStyle(fontSize: 19),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Icon(Icons.location_on),
+                        Padding(
+                          padding: const EdgeInsets.all(2),
+                        ),
+                        Text(
+                          equipment.location,
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Icon(Icons.calendar_today),
+                        Padding(
+                          padding: const EdgeInsets.all(2),
+                        ),
+                        Text(
+                          mydate,
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+              ),
+              GestureDetector(
+                onTap: () {
+                  print("call number");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xfff8ad9d),
+                    border: Border.all(color: Colors.black54),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 1.0),
+                        blurRadius: 3.0,
+                      ),
+                    ],
+                  ),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.phone),
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                      ),
+                      Text(
+                        equipment.phoneNumber.toString(),
+                        style: TextStyle(fontSize: 22),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ));
   }
 
-  Container buildTextContainer(String key, String text) {
+  Container buildTextContainer(String key, String text, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(5),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Text(
-              key,
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 22),
-            ),
-          ),
-        ],
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 22),
       ),
     );
   }
