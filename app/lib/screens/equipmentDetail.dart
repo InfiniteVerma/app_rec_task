@@ -27,8 +27,9 @@ class EquipmentDetail extends StatelessWidget {
                 height: 200,
                 decoration: BoxDecoration(border: Border.all()),
                 child: Center(
-                  child: Text('Image'),
-                ),
+                    child: Image.network(
+                        "https://dry-plains-59279.herokuapp.com/" +
+                            equipment.img)),
               ),
               buildTextContainer("Title", equipment.title),
               buildTextContainer("Desc", equipment.desc),
