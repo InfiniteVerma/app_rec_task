@@ -56,7 +56,8 @@ class _InsertEquipmentState extends State<InsertEquipment> {
       ..fields['desc'] = equipment.desc
       ..fields['location'] = equipment.location
       ..fields['date'] = equipment.date
-      ..fields['phoneNumber'] = equipment.phoneNumber.toString();
+      ..fields['phoneNumber'] = equipment.phoneNumber.toString()
+      ..fields['type'] = equipment.type;
 
     // multipart that takes file
     var multipartFile = new http.MultipartFile('img', stream, length,
