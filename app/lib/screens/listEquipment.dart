@@ -29,10 +29,44 @@ class _EquipmentListState extends State<EquipmentList> {
                               equipment: equipments[index],
                             ))),
                     child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                      ),
                       padding: const EdgeInsets.all(10),
-                      child: Text(
-                        equipments[index].title,
-                        style: TextStyle(fontSize: 20),
+                      margin: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              equipments[index].title,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(equipments[index].location),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(equipments[index]
+                                        .phoneNumber
+                                        .toString()),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
