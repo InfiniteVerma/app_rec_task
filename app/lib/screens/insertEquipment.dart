@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_rec_task/constants.dart';
 import 'package:path/path.dart';
 import 'dart:convert';
 import 'dart:ffi';
@@ -93,9 +94,17 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                     equipment.desc = val;
                   });
                 }),
-                inputWidget('Location', (val) {
+                buildDropdown(
+                  'State',
+                  indiaStates,
+                  equipment.location,
+                  (newValue) {
+                    setState(() => equipment.location = newValue);
+                  },
+                ),
+                buildDropdown('Type', typesOfEquipment, equipment.type, (val) {
                   setState(() {
-                    equipment.location = val;
+                    equipment.type = val;
                   });
                 }),
                 inputWidget('Phone Number', (val) {
@@ -128,6 +137,32 @@ class _InsertEquipmentState extends State<InsertEquipment> {
             ),
           ),
         ));
+  }
+
+  Padding buildDropdown(
+      String hintText, List<String> listItems, String val, Function onchanged) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: DropdownButtonFormField(
+        hint: Text(hintText),
+        items: listItems.map((String category) {
+          return new DropdownMenuItem(
+              value: category,
+              child: Row(
+                children: <Widget>[
+                  Text(category),
+                ],
+              ));
+        }).toList(),
+        onChanged: onchanged,
+        value: val,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+          filled: true,
+          fillColor: Colors.grey[200],
+        ),
+      ),
+    );
   }
 
   Padding inputWidget(String label, Function onsaved) {
