@@ -1,5 +1,13 @@
+import 'dart:io';
+import 'package:path/path.dart';
+import 'dart:convert';
+import 'dart:ffi';
+import 'dart:async';
+import 'package:async/async.dart';
+import 'package:http/http.dart' as http;
 import 'package:app_rec_task/models/equipment.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../http_service.dart';
 
 class InsertEquipment extends StatefulWidget {
@@ -11,8 +19,59 @@ class _InsertEquipmentState extends State<InsertEquipment> {
   String title = "", desc, location, phoneNumber;
   Equipment equipment = Equipment();
   final HttpService httpService = HttpService();
+  File _image;
+  final picker = ImagePicker();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        print(_image);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  upload(File imageFile) async {
+    // open a bytestream
+    var stream =
+        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse("https://dry-plains-59279.herokuapp.com/equipment");
+
+    equipment.date = DateTime.now().toString();
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri)
+      ..fields['title'] = equipment.title
+      ..fields['desc'] = equipment.desc
+      ..fields['location'] = equipment.location
+      ..fields['date'] = equipment.date
+      ..fields['phoneNumber'] = equipment.phoneNumber.toString();
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('img', stream, length,
+        filename: basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +104,10 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                   });
                 }),
                 ElevatedButton(
+                  onPressed: getImage,
+                  child: Text('Upload Image'),
+                ),
+                ElevatedButton(
                   onPressed: () async {
                     final form = _formKey.currentState;
 
@@ -52,7 +115,8 @@ class _InsertEquipmentState extends State<InsertEquipment> {
                       form.save();
                       equipment.date = DateTime.now().toString();
                       print(equipment);
-                      await httpService.insertEquipment(equipment);
+                      upload(_image);
+                      // await httpService.insertEquipment(equipment);
                       Navigator.of(context).pop();
                     } else {
                       print("Error");
