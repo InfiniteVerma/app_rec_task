@@ -44,7 +44,7 @@ class _EquipmentListState extends State<EquipmentList> {
                       stateChosen = val;
                     });
                   }),
-                  buildEquipmentList(equip),
+                  equip.isNotEmpty ? buildEquipmentList(equip) : showEmptyMsg(),
                 ],
               );
             } else {
@@ -56,9 +56,24 @@ class _EquipmentListState extends State<EquipmentList> {
     );
   }
 
+  Expanded showEmptyMsg() {
+    return Expanded(
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Center(
+            child: Text(
+              "No search results found.\nTry again soon.",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
+          )),
+    );
+  }
+
   Container buildTypeFilter(BuildContext context) {
     return Container(
       height: 50,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       width: MediaQuery.of(context).size.width,
       child: ListView(
           scrollDirection: Axis.horizontal,
@@ -71,15 +86,35 @@ class _EquipmentListState extends State<EquipmentList> {
                         typeChosen = typesOfEquipment.indexOf(e);
                       });
                     },
-                    child: Container(
-                        padding: const EdgeInsets.all(5),
-                        margin: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Container(
+                          padding: const EdgeInsets.all(7),
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
                             color: typeChosen == typesOfEquipment.indexOf(e)
-                                ? Colors.blue[200]
-                                : null,
-                            border: Border.all()),
-                        child: Center(child: Text(e)))),
+                                ? Color(0xfff8ad9d)
+                                : Colors.white,
+                            border: Border.all(color: Colors.black54),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), 
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                              child: Text(
+                            e,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: typeChosen == typesOfEquipment.indexOf(e)
+                                    ? Colors.grey[100]
+                                    : null),
+                          ))),
+                    )),
               )
               .toList()),
     );
