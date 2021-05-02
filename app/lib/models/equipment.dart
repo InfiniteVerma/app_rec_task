@@ -5,6 +5,7 @@ class Equipment {
   String location;
   String date;
   int phoneNumber;
+  String img;
 
   Equipment(
       {this.id,
@@ -12,7 +13,8 @@ class Equipment {
       this.desc,
       this.location,
       this.date,
-      this.phoneNumber});
+      this.phoneNumber,
+      this.img});
 
   factory Equipment.fromJson(Map<String, dynamic> json) {
     return Equipment(
@@ -21,12 +23,13 @@ class Equipment {
         desc: json['desc'] as String,
         location: json['location'] as String,
         date: json['date'] as String,
-        phoneNumber: json['phoneNumber'] as int);
+        phoneNumber: json['phoneNumber'] as int,
+        img: json['img'] as String);
   }
 
   @override
   String toString() {
     print(
-        "Title:$title\tDesc:$desc\tLocation:$location\tDate:$date\tPno:$phoneNumber");
+        "Title:$title\tDesc:$desc\tLocation:$location\tDate:$date\tPno:$phoneNumber\tImage:$img");
   }
 }
