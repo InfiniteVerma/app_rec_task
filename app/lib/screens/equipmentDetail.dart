@@ -1,6 +1,6 @@
 import 'package:app_rec_task/models/equipment.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class EquipmentDetail extends StatelessWidget {
   const EquipmentDetail({Key key, this.equipment}) : super(key: key);
@@ -98,6 +98,7 @@ class EquipmentDetail extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   print("call number");
+                  _makingPhoneCall(equipment.phoneNumber.toString());
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -114,7 +115,8 @@ class EquipmentDetail extends StatelessWidget {
                   ),
                   // width: MediaQuery.of(context).size.width,
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -133,6 +135,15 @@ class EquipmentDetail extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  void _makingPhoneCall(phoneNo) async {
+    String url = 'tel:+91' + phoneNo;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Container buildTextContainer(String key, String text, BuildContext context) {
